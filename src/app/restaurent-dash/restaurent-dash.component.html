@@ -1,10 +1,11 @@
 
-<nav class="navbar navbar-light bg-primary">
+<nav class="navbar navbar-light" style="background-color:#6614f3;">
    <div class="container-fluid">
-     <h2> Marvellous Restaurent Record App</h2>
+
+     <h2 class="bi bi-stars"> Marvellous Restaurent Record App</h2>
      <div class="d-flex">
-      <button (click)="clickAddResto()" class="btn btn-success" type="button" data-bs-toggle="modal">Add Restaurent</button>
-      <button routerLink="/login" style="margin-left: 5px;" class="btn btn-danger" type="button" data-bs-toggle="modal">Log Out</button>
+      <button (click)="clickAddResto()" data-bs-target="#exampleModal" class="btn btn-success shadow bi bi-plus-lg" type="button" data-bs-toggle="modal"> Add Restaurant</button>
+      <button routerLink="/login" style="margin-left: 5px;" class="btn btn-danger shadow" type="button" data-bs-toggle="modal"> Log Out</button>
     </div>
    </div>
 </nav>
@@ -12,13 +13,13 @@
 <table class="table mt-4">
     <thead>
         <tr>
-            <th scope="col">Restaurent Id</th>
-            <th scope="col">Restaurent Name</th>
-            <th scope="col">Restaurent Email</th> 
-            <th scope="col">Restaurent Address</th> 
-            <th scope="col">Restaurent Phone</th>
-            <th scope="col">Restaurent Services</th>
-            <th scope="col">Action</th>
+            <th scope="col">Restaurant Id</th>
+            <th scope="col">Restaurant Name</th>
+            <th scope="col">Restaurant Email</th> 
+            <th scope="col">Restaurant Address</th> 
+            <th scope="col">Restaurant Phone</th>
+            <th scope="col">Restaurant Services</th>
+            <th scope="col" class="text-center">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -29,9 +30,9 @@
             <td>{{data.address}}</td>
             <td>{{data.mobile}}</td>
             <td>{{data.services}}</td>
-            <td>
-                <button (click)="onEditResto(data)" class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button> &nbsp;
-                <button (click)="deleteResto(data.id)" class="btn btn-danger" >Delete</button>
+            <td class="text-center">
+                <button (click)="onEditResto(data)" class="btn btn-info bi bi-pencil-square" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> Edit</button> &nbsp;
+                <button (click)="deleteResto(data.id)" class="btn btn-danger bi bi-trash3" > Delete</button>
             </td>
         </tr>
     </tbody>
@@ -44,7 +45,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Records</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Restaurant Details</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -73,7 +74,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="clear">Close</button>
-          <button *ngIf="showAdd" type="button" class="btn btn-primary" (click)="addRestaurent()">Add Details</button>
+          <button *ngIf="showAdd" type="button" class="btn btn-primary" (click)="addRestaurant()">Add Details</button>
           <button *ngIf="showBtn" type="button" class="btn btn-primary" (click)="updateResto()">Update</button>
         </div>
       </div>

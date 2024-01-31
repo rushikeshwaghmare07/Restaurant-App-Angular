@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder  } from '@angular/forms';
 import { ApiService } from '../shared/api.service';
 import {RestaurentData} from './restaurent.model';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-restaurent-dash',
   templateUrl: './restaurent-dash.component.html',
@@ -37,7 +39,7 @@ export class RestaurentDashComponent implements OnInit {
     this.showBtn = true;
   }
  
-  addRestaurent()
+  addRestaurant()
   {
     this.restaurentModelObj.id = this.formValue.value.id;
     this.restaurentModelObj.name = this.formValue.value.name;
@@ -71,15 +73,33 @@ export class RestaurentDashComponent implements OnInit {
     })
   }
 
-  deleteResto(data: any)
-  {
-    this.api.deleteRestaurant(data).subscribe((res: any) => {
-      console.log(res);
-      alert("Restaurent Deleted Successfully");
-      this.getAllData();
-    })
+  deleteResto(data: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this restaurant data!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.api.deleteRestaurant(data).subscribe(
+          (res: any) => {
+            console.log(res);
+            Swal.fire('Deleted!', 'Restaurant has been deleted.', 'success');
+            this.getAllData();
+          },
+          (err) => {
+            console.log(err);
+            Swal.fire('Error!', 'Failed to delete restaurant.', 'error');
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelled', 'Your restaurant data is safe.', 'info');
+      }
+    });
   }
-
+  
   onEditResto(data: any)
   {
     this.showAdd = false;
@@ -109,10 +129,6 @@ export class RestaurentDashComponent implements OnInit {
       ref?.click();
 
       this.getAllData();
-
-    })
-    
+    }) 
   }
-
-  
 }
