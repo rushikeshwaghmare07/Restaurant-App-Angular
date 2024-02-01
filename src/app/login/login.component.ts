@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {NgToastService} from 'ng-angular-popup'
 
 @Component({
   selector: 'app-login',
@@ -13,21 +12,33 @@ import {NgToastService} from 'ng-angular-popup'
 export class LoginComponent implements OnInit 
 {
   loginForm!: FormGroup;
-  constructor(private formbuilder: FormBuilder, private _http:HttpClient, private _router:Router, private toast: NgToastService ) { }
+
+  constructor(private _fb: FormBuilder, private _http:HttpClient, private _router:Router) { }
 
   ngOnInit(): void 
   {
-    this.loginForm = this.formbuilder.group({
-      email: [''],
-      password: ['']
+    this.loginForm = this._fb.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.required]
     });
   }
 
-  logIn() 
-  {
-    console.log(this.loginForm.value);
-      alert("Marvellous" + ' logged in successfully');
-      this._router.navigate(['/restaurent']);
-      this.loginForm.reset();
-  }
+  logIn() {
+    this._http.get<any>("http://localhost:3000/signup")
+      .subscribe(res => {
+        const user = res.find((a: any) => {
+          return a.email === this.loginForm.value.email && a.password === this.loginForm.value.password;
+        });
+        if (user) {
+          alert("Login Success");
+          this.loginForm.reset();
+          this._router.navigate(['restaurent']);
+        } else {
+          alert("User not found !!");
+        }
+      },
+      err => {
+        alert("Something went wrong !!");
+      });
+  }  
 }
