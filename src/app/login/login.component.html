@@ -1,31 +1,31 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="text-center">
-                    <h1>Marvellous Restaurant Login Portal</h1>
-                    <h5>You can login here!</h5>
-                </div>
-                <form [formGroup]="loginForm" (ngSubmit)="logIn()"> 
-                    <div class="mb-3">
-                      <label class="form-label">Email address</label>
-                      <input formControlName="email" type="email" class="form-control" id="email" placeholder="Email address">
-                      <span class="text-danger" *ngIf="loginForm.hasError('required', 'email') && loginForm.controls['email'].dirty">*Email is required.</span>
-                      <span class="text-danger" *ngIf="loginForm.hasError('email', 'email')">*Email is invalid.</span>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">Password</label>
-                      <input  formControlName="password"  type="password" class="form-control" id="password">
-                      <span class="text-danger" *ngIf="loginForm.hasError('required', 'password') && loginForm.controls['password'].dirty">*Password is required.</span>
-                    </div>
-                    <div class="d-flex justify-content-center mt-4">
-                      <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Login</button>
-                    </div>
-                  </form>
-                  <div class="d-flex justify-content-center">
-                    <a style="color: blue; margin-top: 10px;" routerLink="/signup">New User? Click to Sign up</a>
-                  </div>
-            </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="text-center">
+          <h1>Marvellous Restaurant Login Portal</h1>
+          <h5>You can login here!</h5>
         </div>
+        <form [formGroup]="loginForm" (ngSubmit)="logIn()"> 
+          <div class="mb-3">
+            <label class="form-label">Email address</label>
+            <input formControlName="email" type="email" class="form-control" id="email" placeholder="Email address">
+            <span class="text-danger" *ngIf="loginForm.hasError('required', 'email') && loginForm.controls['email'].dirty">*Email is required.</span>
+            <span class="text-danger" *ngIf="loginForm.hasError('email', 'email')">*Email is invalid.</span>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input  formControlName="password"  type="password" class="form-control" id="password">
+            <span class="text-danger" *ngIf="loginForm.hasError('required', 'password') && loginForm.controls['password'].dirty">*Password is required.</span>
+          </div>
+          <div class="d-flex justify-content-center mt-4">
+            <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+          <div class="d-flex justify-content-center">
+            <a style="color: blue; margin-top: 10px;" routerLink="/signup">New User? Click to Sign up</a>
+          </div>
+      </div>
     </div>
+  </div>
 </div>
